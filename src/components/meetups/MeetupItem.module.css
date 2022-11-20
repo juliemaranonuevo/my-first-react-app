@@ -3,15 +3,18 @@
   padding: 0.5rem 1.5rem;
   cursor: pointer;
   border-radius: 4px;
-  background-color: #800040;
-  color: white;
+  background-color: transparent;
+  color: #800040;
   border: 1px solid #800040;
-  margin: 0 1rem;
+  /* margin: 0 5rem; */
+
+  margin-bottom: 1rem;
 }
 
 .btn:hover {
   background-color: #9c1458;
   border-color: #9c1458;
+  color: white;
 }
 
 .item {

@@ -20,7 +20,14 @@ const DUMMY_DATA = [
     title: 'This is a third meetup',
     image: 'https://i.picsum.photos/id/827/200/300.jpg?hmac=0Q7y5JGXuxSXgO7VUvdNhXC4yoAupOJiKmRS9RoPqs8',
     address: 'Meetupstreet 5, 12345 Meetup City 2',
-    description: 'This is a second'
+    description: 'This is a third'
+  },
+  {
+    id: 'm4',
+    title: 'This is a third meetup',
+    image: 'https://i.picsum.photos/id/827/200/300.jpg?hmac=0Q7y5JGXuxSXgO7VUvdNhXC4yoAupOJiKmRS9RoPqs8',
+    address: 'Meetupstreet 5, 12345 Meetup City 2',
+    description: 'This is a fourth'
   }
 ];
 
