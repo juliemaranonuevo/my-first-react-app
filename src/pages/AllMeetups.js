@@ -1,4 +1,5 @@
 import MeetupList from "../components/meetups/MeetupList";
+import { useState, useEffect } from "react";
 
 const DUMMY_DATA = [
   {
@@ -32,45 +33,84 @@ const DUMMY_DATA = [
 ];
 
 function AllMeetupsPage() {
-  return (
-    <section>
-      <h1>All Meetups</h1>
-      <MeetupList meetups={DUMMY_DATA}/>
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadedMeetups, setLoadedMeetups] = useState([])
 
-      {/* <ul>
-        {DUMMY_DATA.map((meetup) => {
-          return <li key={meetup.id}>{meetup.title}</li>;
-        })}
-      </ul> */}
+  useEffect(() => {
+    setIsLoading(true);
 
-      {/* <table style={{ border: '1px solid', width: '100%', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr>
-            <th style={{ border: '1px solid' }}>Id</th>
-            <th style={{ border: '1px solid' }}>Title</th>
-            <th style={{ border: '1px solid' }}>Image</th>
-            <th style={{ border: '1px solid' }}>Address</th>
-            <th style={{ border: '1px solid' }}>Descriptiom</th>
-          </tr>
-        </thead>
-        <tbody>
+    /***************************************************************************************
+     *  FETCH IS A DEFAULT BUILT IN JAVASCRIPT FUNCTION THAT ALLOWS US SEND HTTP REQUESTS 
+     ***************************************************************************************/
+    fetch(
+      'https://react-getting-started-1edb8-default-rtdb.firebaseio.com/meetups.json'
+    ).then(response => {
+      return response.json()
+    }).then(data => {
+
+      const meetups = [];
+      for (const key in data) {
+        const meetup = {
+          id: key,
+          ...data[key]
+        }
+        meetups.push(meetup);
+      }
+
+      setIsLoading(false);
+      setLoadedMeetups(meetups);
+    });
+  }, []);
+
+
+  if (isLoading) {
+    return (
+      <section>
+        <p>Loading...</p>
+      </section>
+    )
+  } else {
+    return (
+      <section>
+        <h1>All Meetups</h1>
+        <MeetupList meetups={loadedMeetups}/>
+        {/* <MeetupList meetups={DUMMY_DATA}/> */}
+
+        {/* <ul>
           {DUMMY_DATA.map((meetup) => {
-            return (
-              <tr key={meetup.id}>
-                <td style={{ border: '1px solid' }}>{meetup.id}</td>
-                <td style={{ border: '1px solid' }}>{meetup.title}</td>
-                <td style={{ border: '1px solid' }}>
-                  <img src={meetup.image}></img>
-                </td>
-                <td style={{ border: '1px solid' }}>{meetup.address}</td>
-                <td style={{ border: '1px solid' }}>{meetup.description}</td>
-              </tr>
-            );
+            return <li key={meetup.id}>{meetup.title}</li>;
           })}
-        </tbody>
-      </table> */}
-    </section>
-  );
+        </ul> */}
+
+        {/* <table style={{ border: '1px solid', width: '100%', borderCollapse: 'collapse' }}>
+          <thead>
+            <tr>
+              <th style={{ border: '1px solid' }}>Id</th>
+              <th style={{ border: '1px solid' }}>Title</th>
+              <th style={{ border: '1px solid' }}>Image</th>
+              <th style={{ border: '1px solid' }}>Address</th>
+              <th style={{ border: '1px solid' }}>Descriptiom</th>
+            </tr>
+          </thead>
+          <tbody>
+            {DUMMY_DATA.map((meetup) => {
+              return (
+                <tr key={meetup.id}>
+                  <td style={{ border: '1px solid' }}>{meetup.id}</td>
+                  <td style={{ border: '1px solid' }}>{meetup.title}</td>
+                  <td style={{ border: '1px solid' }}>
+                    <img src={meetup.image}></img>
+                  </td>
+                  <td style={{ border: '1px solid' }}>{meetup.address}</td>
+                  <td style={{ border: '1px solid' }}>{meetup.description}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table> */}
+      </section>
+    );
+  }
 }
 
 export default AllMeetupsPage;
