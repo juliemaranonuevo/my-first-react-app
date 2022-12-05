@@ -1,6 +1,8 @@
 import NewMeetupForm from "../components/meetups/NewMeetupForm";
+import { useNavigate } from "react-router-dom";
 
 function NewMeetupPage() {
+  const navigate = useNavigate();
 
   const addMeetUpHandler = (meetUpData) => {
     /***************************************************************************************
@@ -15,7 +17,9 @@ function NewMeetupPage() {
           'Content-type': 'application/json'
         }
       }
-    );
+    ).then( () => {
+      navigate('/')
+    });
   }
 
   return (
